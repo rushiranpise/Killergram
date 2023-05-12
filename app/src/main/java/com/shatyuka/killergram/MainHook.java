@@ -61,5 +61,6 @@ public class MainHook implements IXposedHookLoadPackage {
         XposedClass userConfig = new XposedClass("org.telegram.messenger.UserConfig", lpparam.classLoader);
         userConfig.hookAllMethods("getMaxAccountCount", XC_MethodReplacement.returnConstant(999));
         userConfig.hookAllMethods("hasPremiumOnAccounts", XC_MethodReplacement.returnConstant(true));
+        userConfig.hookAllMethods("isPremium", XC_MethodReplacement.returnConstant(true));
     }
 }
