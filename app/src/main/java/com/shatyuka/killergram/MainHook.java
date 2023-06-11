@@ -57,8 +57,13 @@ public class MainHook implements IXposedHookLoadPackage {
         messagesController.hookAllMethods("getSponsoredMessages", XC_MethodReplacement.returnConstant(null));
         messagesController.hookAllMethods("isChatNoForwards", XC_MethodReplacement.returnConstant(false));
 
+        XposedClass messagesController = new XposedClass("org.telegram.messenger.MessageObject", lpparam.classLoader);
+        messagesController.hookAllMethods("canForwardMessage", XC_MethodReplacement.returnConstant(true));
+        messagesController.hookAllMethods("isSecretMedia", XC_MethodReplacement.returnConstant(false));
+
         XposedClass chatUIActivity = new XposedClass("org.telegram.ui.ChatActivity", lpparam.classLoader);
         chatUIActivity.hookAllMethods("addSponsoredMessages", XC_MethodReplacement.returnConstant(null));
+        chatUIActivity.hookAllMethods("openForward", XC_MethodReplacement.returnConstant(true));
 
         XposedClass sponsoredMessages = new XposedClass("org.telegram.tgnet.TLRPC$messages_SponsoredMessages", lpparam.classLoader);
         sponsoredMessages.hookAllMethods("TLdeserialize", XC_MethodReplacement.returnConstant(null));
