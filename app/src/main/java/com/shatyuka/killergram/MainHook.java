@@ -63,7 +63,6 @@ public class MainHook implements IXposedHookLoadPackage {
 
         XposedClass chatUIActivity = new XposedClass("org.telegram.ui.ChatActivity", lpparam.classLoader);
         chatUIActivity.hookAllMethods("addSponsoredMessages", XC_MethodReplacement.returnConstant(null));
-        chatUIActivity.hookAllMethods("openForward", XC_MethodReplacement.returnConstant(true));
 
         XposedClass sponsoredMessages = new XposedClass("org.telegram.tgnet.TLRPC$messages_SponsoredMessages", lpparam.classLoader);
         sponsoredMessages.hookAllMethods("TLdeserialize", XC_MethodReplacement.returnConstant(null));
